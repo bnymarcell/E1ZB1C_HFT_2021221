@@ -12,6 +12,7 @@ namespace E1ZB1C_HFT_2021221.Models
     public class Car
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Car_id { get; set; }
 
         [MaxLength(200)]
@@ -20,14 +21,11 @@ namespace E1ZB1C_HFT_2021221.Models
         [MaxLength(200)]
         public string Car_Type { get; set; }
 
-        [ForeignKey(nameof(Driver))]
-        public int Driver_id { get; set; }
-        
         [ForeignKey(nameof(Company))]
         public int Company_id { get; set; }
 
         [NotMapped]
-        public Driver driver { get; set; }
+        public virtual Driver Driver { get; set; }
 
         [NotMapped]
         public virtual Company Company { get; set; }

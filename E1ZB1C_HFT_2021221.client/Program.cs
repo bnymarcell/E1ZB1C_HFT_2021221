@@ -1,4 +1,7 @@
 ﻿using System;
+using E1ZB1C_HFT_2021221.Data;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace E1ZB1C_HFT_2021221.client
 {
@@ -6,7 +9,9 @@ namespace E1ZB1C_HFT_2021221.client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            CompanyDbContext db = new CompanyDbContext();
+
+            
         }
     }
 }

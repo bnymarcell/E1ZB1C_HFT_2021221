@@ -14,12 +14,16 @@ namespace E1ZB1C_HFT_2021221.Models
         [Key]
         public int Driver_id { get; set; }
 
-        [NotMapped]
-        public Car car { get; set; }
+        [ForeignKey(nameof(Car))]
+        public int Car_id { get; set; }
 
         [MaxLength(100)]
         public string Driver_name { get; set; }
 
         public int Driver_salary { get; set; }
+
+        [NotMapped]
+        public virtual Car car { get; set; }
+
     }
 }
