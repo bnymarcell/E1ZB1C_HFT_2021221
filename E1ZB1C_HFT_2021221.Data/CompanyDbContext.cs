@@ -65,6 +65,12 @@ namespace E1ZB1C_HFT_2021221.Data
                       .WithOne(Driver => Driver.car);
             });
 
+            modelBuilder.Entity<Driver>(entity =>
+            {
+                entity.HasOne(Driver => Driver.company)
+                      .WithMany(Company => Company.driver)
+            });
+
             modelBuilder.Entity<Company>().HasData(FoTaxi,PestFuvar, CityTaxi);
             modelBuilder.Entity<Car>().HasData(taxi1,taxi2,taxi3,taxi4,taxi5,taxi6);
             modelBuilder.Entity<Driver>().HasData(driver1,driver2,driver3,driver4,driver5,driver6);
