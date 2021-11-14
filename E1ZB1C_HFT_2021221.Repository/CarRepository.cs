@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E1ZB1C_HFT_2021221.Repository
 {
-    public class CarRepository
+    public class CarRepository : ICarRepository
     {
         CompanyDbContext db;
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace E1ZB1C_HFT_2021221.Repository
 {
-    public class CompanyRepository
+    public class CompanyRepository : ICompanyRepository
     {
         CompanyDbContext db;
 
@@ -25,7 +25,7 @@ namespace E1ZB1C_HFT_2021221.Repository
         {
             return db.Companies.FirstOrDefault(t => t.Company_id == id);
         }
-        
+
         public IQueryable<Company> ReadAll()
         {
             return db.Companies;
