@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E1ZB1C_HFT_2021221.Repository
 {
-    class DriverRepository
+    public class DriverRepository
     {
         CompanyDbContext db;
         public DriverRepository(CompanyDbContext db)
