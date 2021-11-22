@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\E1ZB1C_HFT_2021221.Data\E1ZB1C_HFT_2021221.Data.csproj" />
+    <ProjectReference Include="..\E1ZB1C_HFT_2021221.Logic\E1ZB1C_HFT_2021221.Logic.csproj" />
     <ProjectReference Include="..\E1ZB1C_HFT_2021221.Models\E1ZB1C_HFT_2021221.Models.csproj" />
   </ItemGroup>
 

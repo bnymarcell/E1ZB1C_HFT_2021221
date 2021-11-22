@@ -44,17 +44,39 @@ namespace E1ZB1C_HFT_2021221.Logic
 
         //Non CRUD methods
 
-        public IQueryable EarnsMost()
+        public IEnumerable<string> CarCount(int id)
         {
-            return 
+            return from x in companyRepo.ReadAll()
+                   where x.Company_id == id
+                   select x.Company_name;
+        }
+
+        public IEnumerable<KeyValuePair<string,int>> HowMany(int id)
+        {
+            return
             from x in companyRepo.ReadAll()
-            group x by x.Company_name into g
-            select new
-            {
-                CompanyName = g.Key,
-                CompanyAVGid = g.Average(t => t.Company_id)
-            };
-        }   
+            from y in x.Cars
+            where y.Company_id == id
+            group y by y.Car_Brand into g
+            select new KeyValuePair<string,int>
+            (
+               g.Key,
+               g.Count()
+            );
+        }  
+        
+        public IEnumerable<KeyValuePair<string,double>> IDAVG()
+        {
+            return
+            from x in companyRepo.ReadAll()
+            from y in x.Cars
+            group y by x.Company_name into g
+            select new KeyValuePair<string, double>
+            (
+                g.Key,
+                g.Average(t => t.Car_id)
+            );
+        }
 
 
     }
