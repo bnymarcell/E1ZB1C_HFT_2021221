@@ -45,6 +45,7 @@ namespace E1ZB1C_HFT_2021221.Data
             Car taxi4 = new Car { Car_id = 4, Car_Brand = "Seat", Car_Type = "Sedan",  Company_id = 2 };
             Car taxi5 = new Car { Car_id = 5, Car_Brand = "Renault", Car_Type = "Kombi",  Company_id = 3 };
             Car taxi6 = new Car { Car_id = 6, Car_Brand = "Skoda", Car_Type = "Sedan",  Company_id = 3 };
+            Car taxi7 = new Car { Car_id = 7, Car_Brand = "Honda", Car_Type = "Sedan", Company_id = 3 };
 
             Driver driver1 = new Driver { Driver_id = 1, Driver_name = "Sanyi", Driver_salary = 200000, Car_id = 1 };
             Driver driver2 = new Driver { Driver_id = 2, Driver_name = "Pista", Driver_salary = 200000, Car_id = 2 };
@@ -52,6 +53,7 @@ namespace E1ZB1C_HFT_2021221.Data
             Driver driver4 = new Driver { Driver_id = 4, Driver_name = "József", Driver_salary = 200000, Car_id = 4 };
             Driver driver5 = new Driver { Driver_id = 5, Driver_name = "Elemér", Driver_salary = 200000, Car_id = 5 };
             Driver driver6 = new Driver { Driver_id = 6, Driver_name = "Demeter", Driver_salary = 200000, Car_id = 6 };
+            Driver driver7 = new Driver { Driver_id = 7, Driver_name = "Ödön", Driver_salary = 300000, Car_id = 7 };
 
             modelBuilder.Entity<Car>(entity =>
             {
@@ -70,8 +72,8 @@ namespace E1ZB1C_HFT_2021221.Data
             });
             
             modelBuilder.Entity<Company>().HasData(FoTaxi,PestFuvar, CityTaxi);
-            modelBuilder.Entity<Car>().HasData(taxi1,taxi2,taxi3,taxi4,taxi5,taxi6);
-            modelBuilder.Entity<Driver>().HasData(driver1,driver2,driver3,driver4,driver5,driver6);
+            modelBuilder.Entity<Car>().HasData(taxi1,taxi2,taxi3,taxi4,taxi5,taxi6,taxi7);
+            modelBuilder.Entity<Driver>().HasData(driver1,driver2,driver3,driver4,driver5,driver6,driver7);
 
         }
     }
