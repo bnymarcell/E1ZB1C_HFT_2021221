@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "E1ZB1C_HFT_2021221.Client": {
+      "commandName": "Project"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "environmentVariables": {},
+      "distributionName": ""
+    }
+  }
+}

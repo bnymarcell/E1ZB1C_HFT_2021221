@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace E1ZB1C_HFT_2021221.Logic
 {
-    public class CompanyLogic
+    public class CompanyLogic : ICompanyLogic
     {
         ICompanyRepository companyRepo;
         public CompanyLogic(ICompanyRepository companyRepo)
@@ -33,7 +33,7 @@ namespace E1ZB1C_HFT_2021221.Logic
         public void Delete(int id)
         {
             companyRepo.Delete(id);
-        }   
+        }
 
         public void Update(Company company)
         {
@@ -51,21 +51,21 @@ namespace E1ZB1C_HFT_2021221.Logic
                    select x.Company_name;
         }
 
-        public IEnumerable<KeyValuePair<string,int>> HowMany(int id)
+        public IEnumerable<KeyValuePair<string, int>> HowMany(int id)
         {
             return
             from x in companyRepo.ReadAll()
             from y in x.Cars
             where y.Company_id == id
             group y by y.Car_Brand into g
-            select new KeyValuePair<string,int>
+            select new KeyValuePair<string, int>
             (
                g.Key,
                g.Count()
             );
-        }  
-        
-        public IEnumerable<KeyValuePair<string,double>> IDAVG()
+        }
+
+        public IEnumerable<KeyValuePair<string, double>> IDAVG()
         {
             return
             from x in companyRepo.ReadAll()

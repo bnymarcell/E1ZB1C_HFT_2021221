@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E1ZB1C_HFT_2021221.Logic
 {
-    public class DriverLogic
+    public class DriverLogic : IDriverLogic
     {
         IDriverRepository driverRepo;
         public DriverLogic(IDriverRepository driverRepo)
