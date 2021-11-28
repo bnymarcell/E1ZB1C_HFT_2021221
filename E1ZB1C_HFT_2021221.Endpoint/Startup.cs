@@ -1,3 +1,4 @@
+using E1ZB1C_HFT_2021221.Data;
 using E1ZB1C_HFT_2021221.Logic;
 using E1ZB1C_HFT_2021221.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -22,10 +23,12 @@ namespace E1ZB1C_HFT_2021221.Endpoint
             services.AddTransient<ICompanyLogic, CompanyLogic>();
             services.AddTransient<ICarLogic, CarLogic>();
             services.AddTransient<IDriverLogic, DriverLogic>();
+
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<ICarRepository, CarRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
-            services.AddTransient<IDriverRepository, DriverRepository>();
+
+            services.AddTransient<CompanyDbContext, CompanyDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

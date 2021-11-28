@@ -12,11 +12,11 @@ namespace E1ZB1C_HFT_2021221.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CompanyController : ControllerBase
+    public class CarController : ControllerBase
     {
-        ICompanyLogic cl;
+        ICarLogic cl;
 
-        public CompanyController(ICompanyLogic cl)
+        public CarController(ICarLogic cl)
         {
             this.cl = cl;
         }
@@ -24,28 +24,28 @@ namespace E1ZB1C_HFT_2021221.Endpoint.Controllers
 
         // GET: /company
         [HttpGet]
-        public IEnumerable<Company> Get()
+        public IEnumerable<Car> Get()
         {
             return cl.ReadAll();
         }
 
         // GET /Company/5
         [HttpGet("{id}")]
-        public Company Get(int id)
+        public Car Get(int id)
         {
             return cl.Read(id);
         }
 
         // POST /company
         [HttpPost]
-        public void Post([FromBody] Company value)
+        public void Post([FromBody] Car value)
         {
             cl.Create(value);
         }
 
         // PUT /company
         [HttpPut]
-        public void Put([FromBody] Company value)
+        public void Put([FromBody] Car value)
         {
             cl.Update(value);
         }

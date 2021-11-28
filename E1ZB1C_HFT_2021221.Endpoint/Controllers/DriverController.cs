@@ -12,49 +12,49 @@ namespace E1ZB1C_HFT_2021221.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CompanyController : ControllerBase
+    public class DriverController : ControllerBase
     {
-        ICompanyLogic cl;
+        IDriverLogic dl;
 
-        public CompanyController(ICompanyLogic cl)
+        public DriverController(IDriverLogic dl)
         {
-            this.cl = cl;
+            this.dl = dl;
         }
 
 
         // GET: /company
         [HttpGet]
-        public IEnumerable<Company> Get()
+        public IEnumerable<Driver> Get()
         {
-            return cl.ReadAll();
+            return dl.ReadAll();
         }
 
         // GET /Company/5
         [HttpGet("{id}")]
-        public Company Get(int id)
+        public Driver Get(int id)
         {
-            return cl.Read(id);
+            return dl.Read(id);
         }
 
         // POST /company
         [HttpPost]
-        public void Post([FromBody] Company value)
+        public void Post([FromBody] Driver value)
         {
-            cl.Create(value);
+            dl.Create(value);
         }
 
         // PUT /company
         [HttpPut]
-        public void Put([FromBody] Company value)
+        public void Put([FromBody] Driver value)
         {
-            cl.Update(value);
+            dl.Update(value);
         }
 
         // DELETE /company/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            cl.Delete(id);
+            dl.Delete(id);
         }
     }
 }
