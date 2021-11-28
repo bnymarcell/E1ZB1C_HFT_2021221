@@ -16,8 +16,10 @@ namespace E1ZB1C_HFT_2021221.client
             RestService rest = new RestService("http://localhost:50212");
 
             var cars = rest.Get<Car>("car");
-            
 
+            var idavg = rest.GetSingle<IEnumerable<KeyValuePair<string, double>>>("/stat/idavg");
+
+            ;
            
         }
 
