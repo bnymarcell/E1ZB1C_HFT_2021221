@@ -1,9 +1,9 @@
-﻿using System;
-using E1ZB1C_HFT_2021221.Data;
+﻿using E1ZB1C_HFT_2021221.Client;
+using E1ZB1C_HFT_2021221.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using E1ZB1C_HFT_2021221.Logic;
-using E1ZB1C_HFT_2021221.Repository;
+
 
 namespace E1ZB1C_HFT_2021221.client
 {
@@ -11,17 +11,14 @@ namespace E1ZB1C_HFT_2021221.client
     {
         static void Main(string[] args)
         {
-            CompanyDbContext db = new CompanyDbContext();
+            System.Threading.Thread.Sleep(8000);
 
-            CompanyLogic cl = new CompanyLogic(new CompanyRepository(db));
-            CarLogic carl = new CarLogic(new CarRepository(db));
-            DriverLogic dl = new DriverLogic(new DriverRepository(db));
-            var g = cl.HowMany(3);
-            var t = cl.IDAVG();
-            var z = carl.WhoDrives(6);
-            var e = dl.DrivesWhat(6);
-            var s = carl.DriverSalary(6);
-            ;
+            RestService rest = new RestService("http://localhost:50212");
+
+            var cars = rest.Get<Car>("car");
+            
+
+           
         }
 
     }
