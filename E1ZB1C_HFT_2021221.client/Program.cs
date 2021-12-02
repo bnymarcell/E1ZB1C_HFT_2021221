@@ -277,6 +277,51 @@ namespace E1ZB1C_HFT_2021221.client
             Console.WriteLine("Process done!");
             Console.ReadKey();
         }
+
+        private static void NonCrud()
+        {
+            Console.Clear();
+            RestService rest = new RestService("http://localhost:50212");
+            Console.WriteLine("Table of the NonCrud method");
+            string which = Console.ReadLine();
+            Console.Clear();
+            if (which == "company")
+            {
+                Console.WriteLine(">1> Car count");
+                Console.WriteLine(">2> How Many cars does the company have");
+                Console.WriteLine(">3> Average of the car id-s");
+                string choice = Console.ReadLine();
+                Console.Clear();
+                if (choice == "1")
+                {
+                    Console.WriteLine("Company id:");
+                    int id = int.Parse(Console.ReadLine());
+                    var query = rest.Get<IEnumerable<string>>(id, "/stat/carcount");
+                    foreach (var x in query)
+                    {
+                        Console.WriteLine(x);
+                    }
+                    Console.ReadKey();
+                }
+                else if (choice == "2")
+                {
+                    Console.WriteLine("Company id:");
+                    int id = int.Parse(Console.ReadLine());
+                    var query = rest.Get <IEnumerable<KeyValuePair<string, int>>>(id, "/stat/howmany");
+                    foreach(var x in query)
+                    {
+                        Console.WriteLine(x);
+                    }
+                    Console.ReadKey();
+                }
+                else if (choice == "3")
+                {
+                    var got = rest.Get<IEnumerable<KeyValuePair<string, double>>>("/stat/idavg");
+                    Console.WriteLine(got);
+                    Console.ReadKey();
+                }
+            }
+        }
     }
 }
     
