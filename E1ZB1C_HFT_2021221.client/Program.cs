@@ -43,6 +43,9 @@ namespace E1ZB1C_HFT_2021221.client
                 case "2":
                     GetAll();
                     return true;
+                case "3":
+                    GetOne();
+                    return true;
 
                 default:
                     Console.WriteLine("Not an option");
@@ -141,11 +144,100 @@ namespace E1ZB1C_HFT_2021221.client
                 var query = rest.Get<Car>(wherefrom);
                 foreach(var x in query)
                 {
-                    Console.WriteLine("Car_ID: " + x.Car_id + " " + "Car Brand: " + x.Car_Brand +" " + "Car Type: ");
+                    Console.WriteLine("Car_ID: " + x.Car_id + " " + "Car Brand: " + x.Car_Brand +" " + "Car Type: " + x.Car_Type);
+                }
+
+            }
+            else if(wherefrom == "driver")
+            {
+                Console.WriteLine("Drivers:");
+                Console.WriteLine();
+                var query = rest.Get<Driver>(wherefrom);
+                foreach(var x in query)
+                {
+                    Console.WriteLine("Driver_ID: " + x.Driver_id + " " + "Driver Name: " + x.Driver_name +" "+"Driver Salary: " + x.Driver_name );
                 }
             }
+            Console.ReadKey();
         }
 
+        private static void GetOne()
+        {
+            Console.Clear();
+            RestService rest = new RestService("http://localhost:50212");
+            Console.WriteLine("Where do you want to read from?");
+            string wherefrom = Console.ReadLine();
+            Console.Clear();
+            if (wherefrom == "company")
+            {
+                Console.WriteLine("Enter company_ID: ");
+                int id = int.Parse(Console.ReadLine());
+                Console.Clear();
+                var query = rest.Get<Company>(id, wherefrom);
+                Console.WriteLine("ID: " + query.Company_id +" "+"Name: "+ query.Company_name);
+            }
+            else if (wherefrom == "car")
+            {
+                Console.WriteLine("Enter car_ID: ");
+                int id = int.Parse(Console.ReadLine());
+                Console.Clear();
+                var query = rest.Get<Car>(id, wherefrom);
+                Console.WriteLine("ID: " + query.Car_id + " " + "Brand: " + query.Car_Brand+" "+ "Type" + query.Car_Type);
+            }
+            if (wherefrom == "driver")
+            {
+                Console.WriteLine("Enter driver_ID: ");
+                int id = int.Parse(Console.ReadLine());
+                Console.Clear();
+                var query = rest.Get<Driver>(id, wherefrom);
+                Console.WriteLine("ID: " + query.Driver_name + " " + "Name: " + query.Driver_name + " " + "Salary:" + query.Driver_salary);
+            }
+            Console.ReadKey();
+        }
+
+        private static void Update()
+        {
+            Console.Clear();
+            RestService rest = new RestService("http://localhost:50212");
+            Console.WriteLine("Which table to update:");
+            string which = Console.ReadLine();
+            Console.Clear();
+            if (which == "company")
+            {
+                Console.WriteLine("What Id: ");
+                int id = int.Parse(Console.ReadLine());
+                Console.Clear();
+                Console.WriteLine("What name: ");
+                string name = Console.ReadLine();
+                Company updating = new Company()
+                {
+                    Company_id = id,
+                    Company_name = name
+                };
+                rest.Put<Company>(updating, "company");
+                Console.Clear();
+                Console.WriteLine("Process done!");
+            }
+            else if (which == "car")
+            {
+                Console.WriteLine("What Id: ");
+                int id = int.Parse(Console.ReadLine());
+                Console.Clear();
+                Console.WriteLine("What brand: ");
+                string brand = Console.ReadLine();
+                Console.WriteLine("What type: ");
+                string type = Console.ReadLine();
+                Car updating = new Car()
+                {
+                    Car_id = id,
+                    Car_Brand = brand,
+                    Car_Type = type
+                };
+                rest.Put<Car>(updating, "car");
+                Console.Clear();
+                Console.WriteLine("Process done!");
+            }
+        }
     }
 }
     
