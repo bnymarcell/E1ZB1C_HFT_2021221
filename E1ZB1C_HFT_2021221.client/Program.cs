@@ -321,6 +321,34 @@ namespace E1ZB1C_HFT_2021221.client
                     Console.ReadKey();
                 }
             }
+            else if(which == "car")
+            {
+                Console.WriteLine(">1> Who Drives");
+                Console.WriteLine(">2> Driver Salary");
+                string choice = Console.ReadLine();
+                if (choice == "1")
+                {
+                    Console.WriteLine("Car ID:");
+                    int id = int.Parse(Console.ReadLine());
+                    var query = rest.Get<IEnumerable<string>>(id, "/stat/whodrives");
+                    foreach(var x in query)
+                    {
+                        Console.WriteLine(x);
+                    }
+                    Console.ReadKey();
+                }
+                else if(choice == "2")
+                {
+                    Console.WriteLine("Car Id: ");
+                    int id = int.Parse(Console.ReadLine());
+                    var query = rest.Get<IEnumerable<int>>(id, "/stat/driversalary");
+                    foreach(var x in query)
+                    {
+                        Console.WriteLine(x);
+                    }
+                    Console.ReadKey();
+                }
+            }
         }
     }
 }
