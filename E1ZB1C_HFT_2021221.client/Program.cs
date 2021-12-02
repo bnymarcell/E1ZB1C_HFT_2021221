@@ -35,6 +35,7 @@ namespace E1ZB1C_HFT_2021221.client
             Console.WriteLine(">4> Delete and existing model");
             Console.WriteLine(">5> Read an item from a model");
             Console.WriteLine(">6> Non Cruds");
+            Console.WriteLine(">E> Exit");
             switch (Console.ReadLine())
             {
                 case "1":
@@ -44,6 +45,12 @@ namespace E1ZB1C_HFT_2021221.client
                     GetAll();
                     return true;
                 case "3":
+                    Update();
+                    return true;
+                case "4":
+                    Delete();
+                    return true;
+                case "5":
                     GetOne();
                     return true;
 
@@ -237,6 +244,38 @@ namespace E1ZB1C_HFT_2021221.client
                 Console.Clear();
                 Console.WriteLine("Process done!");
             }
+            if (which == "driver")
+            {
+                Console.WriteLine("What Id: ");
+                int id = int.Parse(Console.ReadLine());
+                Console.Clear();
+                Console.WriteLine("What name: ");
+                string name = Console.ReadLine();
+                Driver updating = new Driver()
+                {
+                    Driver_id = id,
+                    Driver_name = name
+                };
+                rest.Put<Driver>(updating, "driver");
+                Console.Clear();
+                Console.WriteLine("Process done!");
+            }
+            Console.ReadKey();
+        }
+
+        private static void Delete()
+        {
+            Console.Clear();
+            RestService rest = new RestService("http://localhost:50212");
+            Console.WriteLine("Which table to delete from?");
+            string todelete = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("ID of the model to be deleted:");
+            int id = int.Parse(Console.ReadLine());
+            rest.Delete(id, todelete);
+            Console.Clear();
+            Console.WriteLine("Process done!");
+            Console.ReadKey();
         }
     }
 }
