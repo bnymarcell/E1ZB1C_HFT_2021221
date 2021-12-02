@@ -53,6 +53,8 @@ namespace E1ZB1C_HFT_2021221.client
                 case "5":
                     GetOne();
                     return true;
+                case "E":
+                    return false;
 
                 default:
                     Console.WriteLine("Not an option");
@@ -348,6 +350,11 @@ namespace E1ZB1C_HFT_2021221.client
                     }
                     Console.ReadKey();
                 }
+            }
+            else
+            {
+                Console.WriteLine("Option not available");
+                Console.ReadKey();
             }
         }
     }
