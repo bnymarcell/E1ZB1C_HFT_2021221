@@ -1,4 +1,5 @@
-﻿using E1ZB1C_HFT_2021221.Client;
+﻿using ConsoleTools;
+using E1ZB1C_HFT_2021221.Client;
 using E1ZB1C_HFT_2021221.Models;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,26 @@ namespace E1ZB1C_HFT_2021221.client
         {
             System.Threading.Thread.Sleep(8000);
 
-            RestService rest = new RestService("http://localhost:50212");
+            RestService rt = new RestService("http://localhost:50212");
 
-            var cars = rest.Get<Car>("car");
+            bool menu = true;
+            while (menu)
+            {
+                menu = ShowMenu();
+            }
 
-            var idavg = rest.GetSingle<IEnumerable<KeyValuePair<string, double>>>("/stat/idavg");
+        }
 
-            ;
-           
+
+        private static bool ShowMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Choose a menupoint");
+            Console.WriteLine(">1> Create a new Company, Car, or Driver");
+            Console.WriteLine(">2> Read everything from selected table");
+            Console.WriteLine(">3> Update an existing item");
+            Console.WriteLine(">4> Delete and existing item");
+
         }
 
     }
