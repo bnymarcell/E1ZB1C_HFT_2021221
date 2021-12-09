@@ -173,6 +173,11 @@ namespace E1ZB1C_HFT_2021221.Test
             Assert.That(cl1.CarCount(3).FirstOrDefault(), Is.EqualTo("MIVAN?"));
         }
 
+        [Test]
+        public void DriverisNotNull()
+        {
+            Assert.NotNull(carl1.GetDriverName(1).FirstOrDefault());
+        }
     }
     
 

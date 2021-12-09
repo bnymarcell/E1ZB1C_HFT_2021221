@@ -60,5 +60,14 @@ namespace E1ZB1C_HFT_2021221.Logic
             select x.Driver.Driver_salary;
         }
 
+
+        public IEnumerable<string> GetDriverName(int id)
+        {
+            return
+                from x in carRepo.ReadAll()
+                where x.Car_id == id
+                select x.Driver.Driver_name.ToString();
+        }
+
     }
 }
