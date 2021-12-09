@@ -18,8 +18,9 @@ namespace E1ZB1C_HFT_2021221.Logic
 
         public void Create(Car car)
         {
-
+            
             carRepo.Create(car);
+            
         }
 
         public Car Read(int id)
@@ -41,12 +42,23 @@ namespace E1ZB1C_HFT_2021221.Logic
 
         public void Delete(int id)
         {
-            carRepo.Delete(id);
+
+            if (id > ReadAll().Count() || id < 0)
+            {
+                throw new NullReferenceException();
+            }
+            else
+            {
+                carRepo.Delete(id);
+            }
         }
 
         public void Update(Car car)
         {
-            carRepo.Update(car);
+            
+          carRepo.Update(car);
+            
+            
         }
 
         //Non CRUD methods

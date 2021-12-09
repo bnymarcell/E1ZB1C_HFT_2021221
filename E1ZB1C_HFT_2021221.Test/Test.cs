@@ -101,24 +101,27 @@ namespace E1ZB1C_HFT_2021221.Test
             
             Company fakecomp3 = new Company { Cars = { fakeCar1, fakeCar2 }, Company_id = 3, Company_name = "MIVAN?" };
 
-            var companies = new List<Company>()
+            List<Company> companies = new List<Company>()
             {
                 fakeCompany1,
                 fakeCompany2,
                 fakecomp3
-            }.AsQueryable();
-            var cars = new List<Car>()
+            };
+            List<Car> cars = new List<Car>()
             {
                fakeCar1, fakeCar2, fakeCar3, fakecar4
-            }.AsQueryable();
+            };
 
             var drivers = new List<Driver>()
             {
                 fakeDriver1, fakeDriver2, fakeDriver3, fakeDriver4
             }.AsQueryable();
 
-            mockCompanyRepo.Setup(x => x.ReadAll()).Returns(companies);
-            mockCarRepo.Setup(x => x.ReadAll()).Returns(cars);
+            mockCompanyRepo.Setup(x => x.ReadAll()).Returns(companies.AsQueryable);
+            mockCompanyRepo.Setup(x => x.Create(It.IsAny<Company>()));
+            mockCompanyRepo.Setup(x => x.Delete(It.IsAny<int>())).Callback<int>(id => companies.RemoveAll(y => y.Company_id == id));
+            mockCarRepo.Setup(x => x.Delete(It.IsAny<int>())).Callback<int>(id => cars.RemoveAll(y => y.Car_id == id));
+            mockCarRepo.Setup(x => x.ReadAll()).Returns(cars.AsQueryable());
             mockDriverRepo.Setup(x => x.ReadAll()).Returns(drivers);
 
             cl1 = new CompanyLogic(mockCompanyRepo.Object);
@@ -178,22 +181,13 @@ namespace E1ZB1C_HFT_2021221.Test
         [Test]
         public void DriverisNotNull()
         {
-            Assert.NotNull(carl1.GetDriverName(1).FirstOrDefault());
+            Assert.NotNull(carl1.GetDriverName(2).FirstOrDefault());
         }
 
         [Test]
         public void NullException()
         {
-            try
-            {
-                carl1.Delete(98);
-            }
-            catch (Exception e)
-            {
-
-                Assert.Fail("Expected no exception, but got" + e.Message);
-                Console.WriteLine(e.Message);
-            }
+            Assert.That(() => { carl1.Delete(55); }, Throws.Exception);
                 
         }
 
@@ -204,7 +198,38 @@ namespace E1ZB1C_HFT_2021221.Test
             Assert.That(() => { carl1.Read(-1); }, Throws.Exception);
         }
 
+        [Test]
+        public void DeleteCar()
+        {
+            var countbeforedel = carl1.ReadAll().Count();
+            carl1.Delete(1);
+            var countafterdel= cl1.ReadAll().Count();
+            Assert.That(countbeforedel > countafterdel);
+           
+        }
 
+        [Test]
+        public void DeleteCompany()
+        {
+            var countbeforedel = cl1.ReadAll().Count();
+            cl1.Delete(2);
+            var countafterdel = cl1.ReadAll().Count();
+            Assert.That(countbeforedel > countafterdel);
+        }
+
+        [Test]
+        public void NobodyNamedSzilveszter()
+        {
+            int szilveszterek = 0;
+            foreach (var x in dl1.ReadAll().Select(i => i.Driver_name))
+            { 
+                if (x == "Szilveszter")
+                {
+                    szilveszterek++;
+                }
+            }
+            Assert.That(szilveszterek == 0);
+        }
     }
     
 
