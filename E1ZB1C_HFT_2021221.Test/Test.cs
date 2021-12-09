@@ -198,10 +198,13 @@ namespace E1ZB1C_HFT_2021221.Test
         }
 
         [Test]
-        public void NewTest()
+        public void ReadLessThanOneExceptions()
         {
-
+            
+            Assert.That(() => { carl1.Read(-1); }, Throws.Exception);
         }
+
+
     }
     
 
