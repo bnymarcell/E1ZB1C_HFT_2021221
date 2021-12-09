@@ -53,7 +53,12 @@ namespace E1ZB1C_HFT_2021221.client
                 case "5":
                     GetOne();
                     return true;
+                case "6":
+                    NonCrud();
+                    return true;
                 case "E":
+                    return false;
+                case "e":
                     return false;
 
                 default:
@@ -289,7 +294,7 @@ namespace E1ZB1C_HFT_2021221.client
             Console.Clear();
             if (which == "company")
             {
-                Console.WriteLine(">1> Car count");
+                Console.WriteLine(">1> Name of the company");
                 Console.WriteLine(">2> How Many cars does the company have");
                 Console.WriteLine(">3> Average of the car id-s");
                 string choice = Console.ReadLine();
