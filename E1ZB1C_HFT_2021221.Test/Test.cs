@@ -97,6 +97,8 @@ namespace E1ZB1C_HFT_2021221.Test
                 Company = fakeCompany2,
                 Driver = fakeDriver4
             };
+
+            
             Company fakecomp3 = new Company { Cars = { fakeCar1, fakeCar2 }, Company_id = 3, Company_name = "MIVAN?" };
 
             var companies = new List<Company>()
@@ -177,6 +179,28 @@ namespace E1ZB1C_HFT_2021221.Test
         public void DriverisNotNull()
         {
             Assert.NotNull(carl1.GetDriverName(1).FirstOrDefault());
+        }
+
+        [Test]
+        public void NullException()
+        {
+            try
+            {
+                carl1.Delete(98);
+            }
+            catch (Exception e)
+            {
+
+                Assert.Fail("Expected no exception, but got" + e.Message);
+                Console.WriteLine(e.Message);
+            }
+                
+        }
+
+        [Test]
+        public void NewTest()
+        {
+
         }
     }
     
