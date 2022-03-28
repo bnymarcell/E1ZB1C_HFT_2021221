@@ -14,7 +14,7 @@ namespace E1ZB1C_HFT_2021221.client
         {
             System.Threading.Thread.Sleep(8000);
 
-            RestService rt = new RestService("http://localhost:50212");
+            RestService rt = new RestService("https://localhost:5001/");
 
             bool menu = true;
             while (menu)
@@ -70,7 +70,7 @@ namespace E1ZB1C_HFT_2021221.client
         private static void Create()
         {
             Console.Clear();
-            RestService rest = new RestService("http://localhost:50212");
+            RestService rest = new RestService("https://localhost:5001/");
             Console.WriteLine("Where do you want to create model");
             string whereto = Console.ReadLine();
             Console.Clear();
@@ -137,7 +137,7 @@ namespace E1ZB1C_HFT_2021221.client
         private static void GetAll()
         {
             Console.Clear();
-            RestService rest = new RestService("http://localhost:50212");
+            RestService rest = new RestService("https://localhost:5001/");
             Console.WriteLine("From which table do you want to get all from?");
             string wherefrom = Console.ReadLine();
             Console.Clear();
@@ -178,7 +178,7 @@ namespace E1ZB1C_HFT_2021221.client
         private static void GetOne()
         {
             Console.Clear();
-            RestService rest = new RestService("http://localhost:50212");
+            RestService rest = new RestService("https://localhost:5001/");
             Console.WriteLine("Where do you want to read from?");
             string wherefrom = Console.ReadLine();
             Console.Clear();
@@ -212,7 +212,7 @@ namespace E1ZB1C_HFT_2021221.client
         private static void Update()
         {
             Console.Clear();
-            RestService rest = new RestService("http://localhost:50212");
+            RestService rest = new RestService("https://localhost:5001/");
             Console.WriteLine("Which table to update:");
             string which = Console.ReadLine();
             Console.Clear();
@@ -273,7 +273,7 @@ namespace E1ZB1C_HFT_2021221.client
         private static void Delete()
         {
             Console.Clear();
-            RestService rest = new RestService("http://localhost:50212");
+            RestService rest = new RestService("https://localhost:5001/");
             Console.WriteLine("Which table to delete from?");
             string todelete = Console.ReadLine();
             Console.Clear();
@@ -288,7 +288,7 @@ namespace E1ZB1C_HFT_2021221.client
         private static void NonCrud()
         {
             Console.Clear();
-            RestService rest = new RestService("http://localhost:50212");
+            RestService rest = new RestService("https://localhost:5001/");
             Console.WriteLine("Table of the NonCrud method");
             string which = Console.ReadLine();
             Console.Clear();
