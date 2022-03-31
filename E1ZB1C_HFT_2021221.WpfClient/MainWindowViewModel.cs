@@ -16,15 +16,23 @@ namespace E1ZB1C_HFT_2021221.WpfClient
     {
         public RestCollection<Company> companies { get; set; }
 
-        private Company selectedCompany;
+        public Company selectedCompany;
 
         public Company SelectedCompany
         {
             get { return selectedCompany; }
             set
             {
-                SetProperty(ref selectedCompany, value);
-                (DeleteCompanyCommand as RelayCommand).NotifyCanExecuteChanged();
+                if (value != null)
+                {
+                    selectedCompany = new Company()
+                    {
+                        Company_name = value.Company_name,
+                        Company_id = value.Company_id
+                    };
+                    OnPropertyChanged();
+                    (DeleteCompanyCommand as RelayCommand).NotifyCanExecuteChanged();
+                }
             }
             
         }
@@ -47,8 +55,13 @@ namespace E1ZB1C_HFT_2021221.WpfClient
             {
                 companies.Add(new Company()
                 {
-                    Company_name = "MenőCég"
+                    Company_name = SelectedCompany.Company_name
                 });
+            });
+
+            UpdateCompanyCommand = new RelayCommand(() =>
+            {
+                companies.Update(SelectedCompany);
             });
 
             DeleteCompanyCommand = new RelayCommand(() =>

@@ -60,7 +60,7 @@ namespace E1ZB1C_HFT_2021221.Data
                 entity.HasOne(Car => Car.Company)
                       .WithMany(Company => Company.Cars)
                       .HasForeignKey(Car => Car.Company_id)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Driver>(entity =>
@@ -68,7 +68,7 @@ namespace E1ZB1C_HFT_2021221.Data
                 entity.HasOne(Driver => Driver.car)
                       .WithOne(Car => Car.Driver)
                       .HasForeignKey<Driver>(Driver => Driver.Car_id)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.Cascade);
             });
             
             modelBuilder.Entity<Company>().HasData(FoTaxi,PestFuvar, CityTaxi);
