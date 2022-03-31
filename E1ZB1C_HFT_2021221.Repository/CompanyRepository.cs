@@ -33,16 +33,30 @@ namespace E1ZB1C_HFT_2021221.Repository
 
         public void Delete(int id)
         {
-            db.Remove(Read(id));
+            db.Set<Company>().Remove(Read(id));
             db.SaveChanges();
         }
 
         public void Update(Company company)
         {
+            //var oldcompany = Read(company.Company_id);
+            //oldcompany.Company_name = company.Company_name;
+            //oldcompany.Cars = company.Cars;
             var oldcompany = Read(company.Company_id);
-            oldcompany.Company_name = company.Company_name;
-            oldcompany.Cars = company.Cars;
+            if (oldcompany == null)
+            {
+                throw new ArgumentException("Item doesn't exist");
+            }
 
+            foreach (var prop in oldcompany.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(oldcompany,prop.GetValue(company));
+                }
+            }
+            db.SaveChanges();
+            
         }
     }
 }
