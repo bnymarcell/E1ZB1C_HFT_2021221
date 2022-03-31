@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace E1ZB1C_HFT_2021221.Repository
 {
     public class CarRepository : ICarRepository
     {
         CompanyDbContext db;
+        
 
         public CarRepository(CompanyDbContext db)
         {
