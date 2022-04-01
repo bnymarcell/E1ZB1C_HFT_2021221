@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using E1ZB1C_HFT_2021221.Endpoint.Services;
+using Microsoft.AspNetCore.SignalR;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,10 +17,12 @@ namespace E1ZB1C_HFT_2021221.Endpoint.Controllers
     public class CompanyController : ControllerBase
     {
         ICompanyLogic cl;
+        private readonly IHubContext<SignalRHub> hub;
 
-        public CompanyController(ICompanyLogic cl)
+        public CompanyController(ICompanyLogic cl, IHubContext<SignalRHub> hub)
         {
             this.cl = cl;
+            this.hub = hub;
         }
 
 
@@ -41,6 +45,7 @@ namespace E1ZB1C_HFT_2021221.Endpoint.Controllers
         public void Post([FromBody] Company value)
         {
             cl.Create(value);
+            hub.Clients.All.SendAsync("CompanyCreated", value);
         }
 
         // PUT /company
@@ -48,13 +53,18 @@ namespace E1ZB1C_HFT_2021221.Endpoint.Controllers
         public void Put([FromBody] Company value)
         {
             cl.Update(value);
+            hub.Clients.All.SendAsync("CompanyUpdated", value);
+
         }
 
         // DELETE /company/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var actorToDelete = this.cl.Read(id);
             cl.Delete(id);
+            hub.Clients.All.SendAsync("CompanyDeleted", actorToDelete);
+
         }
     }
 }

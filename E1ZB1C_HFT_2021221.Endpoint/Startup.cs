@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using E1ZB1C_HFT_2021221.Endpoint.Services;
 
 namespace E1ZB1C_HFT_2021221.Endpoint
 {
@@ -35,6 +36,8 @@ namespace E1ZB1C_HFT_2021221.Endpoint
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "E1ZB1C_HFT_2021221.Endpoint", Version = "v1" });
             });
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +57,13 @@ namespace E1ZB1C_HFT_2021221.Endpoint
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/ swagger / v1 / swagger.json", "MovieDbApp.Endpoint v1"));
-            
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("hub");
+            });
+
 
         }
     }
