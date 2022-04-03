@@ -37,12 +37,40 @@ namespace E1ZB1C_HFT_2021221.WpfClient
             
         }
         
+        public RestCollection<Car> cars { get; set; }
+
+        public Car selectedCar;
+
+        public Car SelectedCar
+        {
+            get { return SelectedCar; }
+            set
+            {
+                if (value != null)
+                {
+                    selectedCar = new Car()
+                    {
+                        Car_id = value.Car_id,
+                        Car_Brand = value.Car_Brand,
+                        Car_Type = value.Car_Type
+                    };
+                    OnPropertyChanged();
+                    (DeleteCarCommand as RelayCommand).NotifyCanExecuteChanged();
+                }
+            }
+        }
+
         public ICommand CreateCompanyCommand { get; set; }
 
         public ICommand DeleteCompanyCommand { get; set; }
         
         public ICommand UpdateCompanyCommand { get; set; }
-
+        
+        public ICommand CreateCarCommand { get; set; }
+        
+        public ICommand UpdateCarCommand { get; set; }
+        
+        public ICommand DeleteCarCommand { get; set; }
 
         
         public MainWindowViewModel()
@@ -59,9 +87,25 @@ namespace E1ZB1C_HFT_2021221.WpfClient
                 });
             });
 
+            selectedCar = new Car();
+            cars = new RestCollection<Car>("https://localhost:5001", "Car", "hub");
+
+            CreateCarCommand = new RelayCommand(() =>
+            {
+                cars.Add(new Car()
+                {
+                    Car_id = selectedCar.Car_id
+                });
+            });
+
             UpdateCompanyCommand = new RelayCommand(() =>
             {
                 companies.Update(SelectedCompany);
+            });
+
+            UpdateCarCommand = new RelayCommand(() =>
+            {
+                cars.Update(SelectedCar);
             });
 
             DeleteCompanyCommand = new RelayCommand(() =>
@@ -72,6 +116,16 @@ namespace E1ZB1C_HFT_2021221.WpfClient
             {
                 return SelectedCompany != null;
             });
+
+            DeleteCarCommand = new RelayCommand(() =>
+            {
+                cars.Delete(SelectedCar.Car_id);
+            },
+                () =>
+                {
+                    return SelectedCar != null;
+                });
+
         }
     }
 }
