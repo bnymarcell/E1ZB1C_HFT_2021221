@@ -38,7 +38,7 @@ namespace E1ZB1C_HFT_2021221.Repository
 
         public void Delete(int id)
         {
-            db.Remove(Read(id));
+            db.Set<Car>().Remove(Read(id));
             db.SaveChanges();
         }
 

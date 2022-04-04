@@ -31,5 +31,6 @@ namespace E1ZB1C_HFT_2021221.Models
         [NotMapped]
         [JsonIgnore]
         public virtual Company Company { get; set; }
+        
     }
 }
