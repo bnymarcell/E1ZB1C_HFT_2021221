@@ -51,7 +51,7 @@
                 </ListBox>
                 <StackPanel Grid.Column="1">
                     <Label Content="Name" Background="LightBlue" Padding="10"/>
-                    <TextBox Text="{Binding SelectedCar.Car_id}" Padding="10" Margin="0,0,0,30"/>
+                    <TextBox Text="{Binding SelectedCar.Car_Brand}" Padding="10" Margin="0,0,0,30"/>
                     <Button Content="Create Car" Command="{Binding CreateCarCommand}" Margin="10" Padding="10"></Button>
                     <Button Content="Delete Car" Command="{Binding DeleteCarCommand}" Margin="10" Padding="10"></Button>
                     <Button Content="Update Car" Command="{Binding UpdateCarCommand}" Margin="10" Padding="10"></Button>

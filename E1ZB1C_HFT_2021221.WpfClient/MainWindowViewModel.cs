@@ -51,11 +51,11 @@ namespace E1ZB1C_HFT_2021221.WpfClient
                 {
                     selectedCar = new Car()
                     {
-                        Car_id = value.Car_id,
+                        //Car_id = value.Car_id,
                         Car_Brand = value.Car_Brand,
-                        Car_Type = value.Car_Type,
-                        Company_id = value.Company_id
-                        
+                        Car_Type = value.Car_Type, 
+                        Company_id = value.Company_id,
+
                     };
                     OnPropertyChanged();
                         (DeleteCarCommand as RelayCommand).NotifyCanExecuteChanged();
@@ -97,8 +97,11 @@ namespace E1ZB1C_HFT_2021221.WpfClient
             {
                 cars.Add(new Car()
                 {
+                    //Car_id = SelectedCar.Car_id,
                     Car_Brand = SelectedCar.Car_Brand,
-                    Company_id = 1
+                    Car_Type = SelectedCar.Car_Type,
+                    Company_id = SelectedCar.Company_id
+
                 });
             });
 
