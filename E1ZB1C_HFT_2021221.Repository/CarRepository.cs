@@ -45,7 +45,7 @@ namespace E1ZB1C_HFT_2021221.Repository
         public void Update(Car car)
         {
             var oldcar = Read(car.Car_id);
-            oldcar.Car_Brand = car.Car_Brand;
+            
             oldcar.Car_Type = car.Car_Type;
 
         }

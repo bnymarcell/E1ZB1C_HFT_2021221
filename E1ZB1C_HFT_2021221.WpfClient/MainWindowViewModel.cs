@@ -51,11 +51,12 @@ namespace E1ZB1C_HFT_2021221.WpfClient
                 {
                     selectedCar = new Car()
                     {
-                        //Car_id = value.Car_id,
+                        Car_id = value.Car_id,
                         Car_Brand = value.Car_Brand,
                         Car_Type = value.Car_Type, 
                         Company_id = value.Company_id,
-
+                        Company = value.Company,
+                        Driver = value.Driver,
                     };
                     OnPropertyChanged();
                         (DeleteCarCommand as RelayCommand).NotifyCanExecuteChanged();
@@ -97,11 +98,11 @@ namespace E1ZB1C_HFT_2021221.WpfClient
             {
                 cars.Add(new Car()
                 {
-                    //Car_id = SelectedCar.Car_id,
-                    Car_Brand = SelectedCar.Car_Brand,
+                    //Car_Brand = SelectedCar.Car_Brand,
                     Car_Type = SelectedCar.Car_Type,
-                    Company_id = SelectedCar.Company_id
-
+                    Company_id = 2,
+                    //Driver = SelectedCar.Driver,
+                    //Company = SelectedCar.Company,
                 });
             });
 
@@ -124,14 +125,14 @@ namespace E1ZB1C_HFT_2021221.WpfClient
                 return SelectedCompany != null;
             });
 
-                DeleteCarCommand = new RelayCommand(() =>
-                {
-                    cars.Delete(SelectedCar.Car_id);
-                }, 
-                    () => 
-                    {
-                        return SelectedCar != null;
-                    });
+            DeleteCarCommand = new RelayCommand(() =>
+            {
+               cars.Delete(SelectedCar.Car_id);
+            }, 
+            () => 
+            {
+               return SelectedCar != null;
+            });
 
         }
     }
