@@ -15,6 +15,7 @@ namespace E1ZB1C_HFT_2021221.WpfClient
     internal class MainWindowViewModel : ObservableRecipient
     {
         public RestCollection<Company> companies { get; set; }
+        public RestCollection<Car> cars { get; set; }
 
         public Company selectedCompany;
 
@@ -34,7 +35,27 @@ namespace E1ZB1C_HFT_2021221.WpfClient
                     (DeleteCompanyCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
-            
+        }
+
+        public Car selectedCar;
+
+        public Car SelectedCar
+        {
+            get { return selectedCar; }
+            set
+            {
+                selectedCar = new Car()
+                {
+                    Car_id = value.Car_id,
+                    Car_Brand = value.Car_Brand,
+                    Car_Type = value.Car_Type,
+                    Company_id = value.Company_id,
+                    Company = value.Company,
+                    Driver = value.Driver
+                };
+                OnPropertyChanged();
+                (DeleteCarCommand as RelayCommand).NotifyCanExecuteChanged();
+            }
         }
         
         public ICommand CreateCompanyCommand { get; set; }
@@ -44,11 +65,18 @@ namespace E1ZB1C_HFT_2021221.WpfClient
         public ICommand UpdateCompanyCommand { get; set; }
 
 
+        public ICommand CreateCarCommand { get; set; }
+        public ICommand DeleteCarCommand { get; set; }
+        public ICommand UpdateCarCommand { get; set; }
+
+
         
         public MainWindowViewModel()
         {
-            companies = new RestCollection<Company>("https://localhost:5001/","company","hub");
+            companies = new RestCollection<Company>("https://localhost:44375/","company","hub");
+            cars = new RestCollection<Car>("https://localhost:44375/", "company", "hub");
 
+            selectedCar = new Car();
             selectedCompany = new Company();
             
             CreateCompanyCommand = new RelayCommand(() =>
@@ -59,18 +87,44 @@ namespace E1ZB1C_HFT_2021221.WpfClient
                 });
             });
 
+            CreateCarCommand = new RelayCommand(() =>
+            {
+                cars.Add(new Car()
+                {
+                    //Car_Brand = selectedCar.Car_Brand,
+                    Car_Type = selectedCar.Car_Type,
+                    //Company = selectedCompany,
+                    Company_id = 2,
+                    //Driver = selectedCar.Driver,
+                });
+            });
+
             UpdateCompanyCommand = new RelayCommand(() =>
             {
                 companies.Update(SelectedCompany);
+            });
+
+            UpdateCarCommand = new RelayCommand(() =>
+            {
+                cars.Update(SelectedCar);
             });
 
             DeleteCompanyCommand = new RelayCommand(() =>
             {
                 companies.Delete(SelectedCompany.Company_id);
             }, 
-                ()=>
+            ()=>
             {
                 return SelectedCompany != null;
+            });
+
+            DeleteCarCommand = new RelayCommand(() =>
+            {
+                cars.Delete(SelectedCar.Car_id);
+            },
+            ()=>
+            {
+                return SelectedCar != null;
             });
         }
     }
