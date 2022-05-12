@@ -42,9 +42,9 @@ namespace E1ZB1C_HFT_2021221.Logic
 
         public void Delete(int id)
         {
-
-            if (id > ReadAll().Count() || id < 0)
+            if ( id < 0)
             {
+                
                 throw new NullReferenceException();
             }
             else

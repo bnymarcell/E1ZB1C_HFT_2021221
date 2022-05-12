@@ -45,9 +45,19 @@ namespace E1ZB1C_HFT_2021221.Repository
         public void Update(Car car)
         {
             var oldcar = Read(car.Car_id);
-            oldcar.Car_Brand = car.Car_Brand;
-            oldcar.Car_Type = car.Car_Type;
+            if (oldcar == null)
+            {
+                throw new ArgumentException("Item doesn't exist");
+            }
 
+            foreach (var prop in oldcar.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(oldcar, prop.GetValue(car));
+                }
+            }
+            db.SaveChanges();
         }
     }
 }

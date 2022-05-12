@@ -58,5 +58,28 @@
                 </StackPanel>
             </Grid>
         </TabItem>
+        <TabItem>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <ListBox Grid.Column="0" ItemsSource="{Binding drivers}" SelectedItem="{Binding SelectedDriver}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Driver_name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel Grid.Column="1">
+                    <Label Content="Name" Background="LightBlue" Padding="10"/>
+                    <TextBox Text="{Binding SelectedDriver.Driver_name}" Padding="10" Margin="0,0,0,30"/>
+                    <Button Content="Create Company" Command="{Binding CreateDriverCommand}" Margin="10" Padding="10"></Button>
+                    <Button Content="Delete Company" Command="{Binding DeleteDriverCommand}" Margin="10" Padding="10"></Button>
+                    <Button Content="Update Company" Command="{Binding UpdateDriverCommand}" Margin="10" Padding="10"></Button>
+                </StackPanel>
+            </Grid>
+        </TabItem>
     </TabControl>
 </Window>

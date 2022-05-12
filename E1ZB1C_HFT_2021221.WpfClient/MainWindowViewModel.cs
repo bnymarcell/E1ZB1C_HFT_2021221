@@ -16,6 +16,8 @@ namespace E1ZB1C_HFT_2021221.WpfClient
     {
         public RestCollection<Company> companies { get; set; }
         public RestCollection<Car> cars { get; set; }
+        
+        public RestCollection<Driver> drivers { get; set; }
 
         public Company selectedCompany;
 
@@ -37,6 +39,28 @@ namespace E1ZB1C_HFT_2021221.WpfClient
             }
         }
 
+        public Driver selectedDriver;
+
+        public Driver SelectedDriver
+        {
+            get { return selectedDriver; }
+            set
+            {
+                if (value != null)
+                {
+                    selectedDriver = new Driver()
+                    {
+                        Driver_id = value.Driver_id,
+                        Driver_name = value.Driver_name,
+                        Driver_salary = value.Driver_salary,
+                        Car_id = value.Car_id
+                    };
+                    OnPropertyChanged();
+                    (DeleteDriverCommand as RelayCommand).NotifyCanExecuteChanged();
+                }
+            }
+        }
+
         public Car selectedCar;
 
         public Car SelectedCar
@@ -44,17 +68,19 @@ namespace E1ZB1C_HFT_2021221.WpfClient
             get { return selectedCar; }
             set
             {
-                selectedCar = new Car()
+                if (value != null)
                 {
-                    Car_id = value.Car_id,
-                    Car_Brand = value.Car_Brand,
-                    Car_Type = value.Car_Type,
-                    Company_id = value.Company_id,
-                    Company = value.Company,
-                    Driver = value.Driver
-                };
-                OnPropertyChanged();
-                (DeleteCarCommand as RelayCommand).NotifyCanExecuteChanged();
+                    selectedCar = new Car()
+                    {
+                        Car_id = value.Car_id,
+                        Car_Brand = value.Car_Brand,
+                        Car_Type = value.Car_Type,
+                        Company_id = value.Company_id,
+
+                    };
+                    OnPropertyChanged();
+                    (DeleteCarCommand as RelayCommand).NotifyCanExecuteChanged();
+                }
             }
         }
         
@@ -69,15 +95,21 @@ namespace E1ZB1C_HFT_2021221.WpfClient
         public ICommand DeleteCarCommand { get; set; }
         public ICommand UpdateCarCommand { get; set; }
 
+        public ICommand CreateDriverCommand { get; set; }
+        public ICommand DeleteDriverCommand { get; set; }
+        public ICommand UpdateDriverCommand { get; set; }
 
-        
+
+
         public MainWindowViewModel()
         {
-            companies = new RestCollection<Company>("https://localhost:44375/","company","hub");
-            cars = new RestCollection<Car>("https://localhost:44375/", "company", "hub");
+            companies = new RestCollection<Company>("https://localhost:50212/", "company","hub");
+            cars = new RestCollection<Car>("https://localhost:50212/", "company", "hub");
+            drivers = new RestCollection<Driver>("https://localhost:50212/", "driver", "hub");
 
             selectedCar = new Car();
             selectedCompany = new Company();
+            selectedDriver = new Driver();
             
             CreateCompanyCommand = new RelayCommand(() =>
             {
@@ -87,16 +119,22 @@ namespace E1ZB1C_HFT_2021221.WpfClient
                 });
             });
 
+            CreateDriverCommand = new RelayCommand(() =>
+            {
+                drivers.Add(new Driver()
+                {
+                    Driver_name = SelectedDriver.Driver_name,
+                    Car_id = 10,
+                }) ;
+            });
+
             CreateCarCommand = new RelayCommand(() =>
             {
                 cars.Add(new Car()
                 {
-                    //Car_Brand = selectedCar.Car_Brand,
                     Car_Type = selectedCar.Car_Type,
-                    //Company = selectedCompany,
                     Company_id = 2,
-                    //Driver = selectedCar.Driver,
-                });
+                }) ;
             });
 
             UpdateCompanyCommand = new RelayCommand(() =>
@@ -104,9 +142,23 @@ namespace E1ZB1C_HFT_2021221.WpfClient
                 companies.Update(SelectedCompany);
             });
 
+            UpdateDriverCommand = new RelayCommand(() =>
+            {
+                drivers.Update(SelectedDriver);
+            });
+
             UpdateCarCommand = new RelayCommand(() =>
             {
                 cars.Update(SelectedCar);
+            });
+
+            DeleteDriverCommand = new RelayCommand(() =>
+            {
+                drivers.Delete(SelectedDriver.Driver_id);
+            },
+            () =>
+            {
+                return SelectedCompany != null;
             });
 
             DeleteCompanyCommand = new RelayCommand(() =>
